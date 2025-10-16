@@ -1,0 +1,10 @@
+{
+  "name": "Kasko Teklif Uygulaması",
+  "description": "Araç bilgilerine göre kasko tekliflerini getirir.",
+  "api": {
+    "type": "custom",
+    "url": "https://your-vercel-domain.vercel.app/api/kasko_app.js"
+  },
+  "metaKeys": ["kasko", "araç", "sigorta", "teklif", "fiyat"],
+  "permissions": ["read:vehicle_info", "read:quotes"]
+}
