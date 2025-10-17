@@ -1,6 +1,6 @@
 // package.json içinde "type": "module" olduğundan emin ol
 export const config = {
- runtime: "nodejs"
+  runtime: "nodejs"
 };
 
 // --- SDK fonksiyon tanımı ---
@@ -32,4 +32,30 @@ const functions = {
   }
 };
 
+// --- Vercel endpoint ---
+export default async function handler(req, res) {
+  try {
+    if (req.method === "GET") {
+      return res.status(200).json({
+        status: "ok",
+        message: "Kasko API aktif. POST ile test edebilirsin."
+      });
+    }
 
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Only POST allowed" });
+    }
+
+    const { marka, model, yil, sehir } = req.body || {};
+    if (!marka || !model || !yil) {
+      return res.status(400).json({ error: "Eksik parametre: marka, model, yil gerekli." });
+    }
+
+    const result = await functions.getKaskoTeklifi.handler({ marka, model, yil, sehir });
+    return res.status(200).json(result);
+
+  } catch (err) {
+    console.error("Hata:", err);
+    return res.status(500).json({ error: err.message });
+  }
+}
