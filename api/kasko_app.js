@@ -1,27 +1,35 @@
-import { getMockQuotes } from "./quotes.js";
+// package.json içinde "type": "module" olduğundan emin ol
+export const config = {
+  runtime: "nodejs20.x"
+};
 
-
-export const functions = {
+// --- SDK fonksiyon tanımı ---
+const functions = {
   getKaskoTeklifi: {
     description: "Araç bilgilerine göre kasko tekliflerini döner.",
     parameters: {
       type: "object",
       properties: {
-        marka: { type: "string", description: "Araç markası" },
-        model: { type: "string", description: "Araç modeli" },
-        yil: { type: "integer", description: "Araç yılı" },
-        sehir: { type: "string", description: "Şehir (opsiyonel)" }
+        marka: { type: "string" },
+        model: { type: "string" },
+        yil: { type: "integer" },
+        sehir: { type: "string" }
       },
       required: ["marka", "model", "yil"]
     },
     async handler({ marka, model, yil, sehir }) {
-      const result = getMockQuotes({ marka, model, yil });
+      const teklifler = [
+        { sirket: "Allianz", fiyat: 8200 },
+        { sirket: "Axa", fiyat: 8450 },
+        { sirket: "Mapfre", fiyat: 8750 }
+      ];
       return {
-        baslik: result.baslik,
-        teklifler: result.teklifler,
+        baslik: `${yil} ${marka} ${model} için kasko teklifleri`,
+        teklifler,
         sehir: sehir || "Belirtilmedi"
       };
     }
   }
 };
+
 
