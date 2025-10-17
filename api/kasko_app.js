@@ -1,6 +1,6 @@
 // package.json içinde "type": "module" olduğundan emin ol
 export const config = {
-  runtime: "nodejs20.x"
+ runtime: "nodejs"
 };
 
 // --- SDK fonksiyon tanımı ---
