@@ -62,7 +62,7 @@ export default async function handler(req, res) {
 
     const { marka, model, yil, sehir } = req.body || {};
     if (!marka || !model || !yil) {
-      return res.status(400).json({ error: "Eksik parametre: marka, model, yil gerekli." });
+      return res.status(200).json({ message: "Eksik parametre: marka, model, yil gerekli." });
     }
 
     const result = await functions.getKaskoTeklifi.handler({ marka, model, yil, sehir });
